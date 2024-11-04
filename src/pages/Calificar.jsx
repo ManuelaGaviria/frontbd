@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
 import ContenedorForms from '../components/ContenedorForms';
@@ -10,6 +11,7 @@ import Select from "../components/Select";
 import LabelInput from "../components/LabelInput";
 
 function Calificar() {
+    const navigate = useNavigate();
     const {examenOral, changeExamenOral, examenEscrito, changeExamenEscrito} = useContext (GeneralContext)
 
     const [estuSelect, setEstuSelect] = useState([]);
@@ -72,7 +74,60 @@ function Calificar() {
         console.log('Examen seleccionado:', e.target.value);
     };
 
-    async function validate () {}
+    async function validate () {
+        if (estuSeleccionado === "" || examSeleccionado === "") {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Por favor llena todos los campos",
+              customClass: {
+                confirmButton: 'btn-color'
+              },
+              buttonsStyling: false
+            });
+          } else { 
+            const data = {
+              dniEstudiante: estuSeleccionado,
+              numeroExamen: examSeleccionado,
+              notaExamOral: examenOral,
+              notaExamEscrito: examenEscrito
+            };
+            try {
+              const respuesta = await fetchBody('/usuarios/calificar', 'POST', data);
+              if (respuesta.exito) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Examen calificado con éxito!",
+                    customClass: {
+                      confirmButton: 'btn-color'
+                    },
+                    buttonsStyling: false
+                  });
+                  navigate("/Teacher");
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "Error",
+                  text: 'No se pudo calificar el examen',
+                  customClass: {
+                    confirmButton: 'btn-color'
+                  },
+                  buttonsStyling: false
+                });
+              }
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: 'Error al procesar la solicitud para calificar',
+                customClass: {
+                  confirmButton: 'btn-color'
+                },
+                buttonsStyling: false
+              });
+            }
+          }
+    }
 
   return (
     <motion.div className="login-container"
@@ -83,10 +138,10 @@ function Calificar() {
       <ContenedorForms>
         <h1>Calificar</h1>
         <div className="InputContainer">
-            <Select titulo="Estudiante" opciones={estuSelect}eventoCambio={handleChange}></Select>
-            <Select titulo="Examen" opciones={examSelect}eventoCambio={handleChangeExam}></Select>
-            <LabelInput texto="Nota Examen Oral" tipo="number" eventoCambio={changeExamenOral}></LabelInput>
-            <LabelInput texto="Nota Examen Escrito" tipo="number" eventoCambio={changeExamenEscrito}></LabelInput>
+            <Select titulo="Estudiante *" opciones={estuSelect}eventoCambio={handleChange}></Select>
+            <Select titulo="Examen *" opciones={examSelect}eventoCambio={handleChangeExam}></Select>
+            <LabelInput texto="Nota Examen Oral *" tipo="number" eventoCambio={changeExamenOral}></LabelInput>
+            <LabelInput texto="Nota Examen Escrito *" tipo="number" eventoCambio={changeExamenEscrito}></LabelInput>
         </div>
         <br />
         <Button eventoClick={validate} clase="Button">Calificar</Button>
