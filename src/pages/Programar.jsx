@@ -153,7 +153,7 @@ function Programar() {
         <br />
         <Button eventoClick={validate} clase="Button">Programar</Button>
 
-        <ButtonLink destino="/Teacher" clase="Button">Regresar</ButtonLink>
+        <ButtonLink destino="/Student" clase="Button">Regresar</ButtonLink>
       </ContenedorForms>
     </motion.div>
   );
