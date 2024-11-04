@@ -25,4 +25,4 @@ function LabelInputIcon({texto,eventoCambio}) {
     )
   }
   
-  export default LabelInputIcon
+  export default LabelInputIcon;

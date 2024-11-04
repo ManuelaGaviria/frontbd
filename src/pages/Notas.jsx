@@ -4,16 +4,7 @@ import Logo3 from '../components/Logo3';
 import { motion } from 'framer-motion';
 import FullScreenCard from '../components/FullScreenCard';
 import { fetchBody } from '../utils/fetch';
-import GeneralContext from '../context/GeneralContext';
-import { useContext } from "react";
-import { MdModeEdit } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
-import Button from '../components/Button';
-import ContenedorForms from '../components/ContenedorForms';
 import ButtonLink from '../components/ButtonLink';
-import LabelInputEdit from '../components/LabelInputEdit';
-import { useNavigate } from 'react-router-dom';
-import SelectEdit from '../components/SelectEdit';
 
 function Notas() {
   const [notas, setNotas] = useState([]);

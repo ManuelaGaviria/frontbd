@@ -1,7 +1,6 @@
 import Logo2 from '../components/Logo2';
 import { motion } from 'framer-motion';
 import LogoutButton from '../components/LogoutButton'
-import { useNavigate } from 'react-router-dom';
 import ButtonLink from '../components/ButtonLink';
 
 function Student() {
