@@ -5,6 +5,7 @@ import Teacher from "../pages/Teacher";
 import Student from "../pages/Student";
 import Calificar from "../pages/Calificar";
 import Programar from "../pages/Programar";
+import Notas from "../pages/Notas";
 
 function AppRoutes() {
     const location = useLocation();
@@ -17,6 +18,7 @@ function AppRoutes() {
                 <Route exact path="/Student" element={<Student></Student>}></Route>
                 <Route exact path="/CalificarExamen" element={<Calificar></Calificar>}></Route>
                 <Route exact path="/ProgramarClase" element={<Programar></Programar>}></Route>
+                <Route exact path="/VerNotas" element={<Notas></Notas>}></Route>
             </Routes>
         </AnimatePresence>
     </>
