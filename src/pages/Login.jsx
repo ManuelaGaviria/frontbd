@@ -6,7 +6,6 @@ import Logo from '../components/Logo';
 import Contenedor from '../components/Contenedor';
 import LabelInput from '../components/LabelInput';
 import GeneralContext from '../context/GeneralContext';
-import ButtonLink from '../components/ButtonLink';
 import Button from '../components/Button';
 import { fetchBody } from '../utils/fetch';
 import Swal from 'sweetalert2';

@@ -12,7 +12,6 @@ function Select({titulo, opciones, eventoCambio}) {
                 ))}
             </select>
         </div>
-          
       </div>
     )
   }

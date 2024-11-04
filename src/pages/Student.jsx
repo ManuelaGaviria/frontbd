@@ -1,26 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react'
 import Logo2 from '../components/Logo2';
 import { motion } from 'framer-motion';
 import LogoutButton from '../components/LogoutButton'
-import { fetchBody } from '../utils/fetch';
 import { useNavigate } from 'react-router-dom';
 import ButtonLink from '../components/ButtonLink';
 
 function Student() {
-  const navigate = useNavigate();
-
-    useEffect(() => {
-        const verificar = async () => {
-            const respuesta = await fetchBody('/usuarios/', 'POST', {rol: "estudfiabte"});
-            if (respuesta.exito === false) {
-                navigate("/")
-            }
-        }
-        verificar();
-    }, [])
-
-
-
   return (
     <motion.div
       className='AdminContainer'
@@ -42,7 +26,8 @@ function Student() {
         <div className='ButtonsAdminContainer'>
           <h1>Bienvenido Estudiante</h1>
           <div className=''>
-            <ButtonLink destino="/NivelesCulminados" clase="Button2">Niveles Culminados</ButtonLink>
+            <ButtonLink destino="/ProgramarClase" clase="Button2">Programar clase</ButtonLink>
+            <ButtonLink destino="/VerNotas" clase="Button2">Ver notas</ButtonLink>
           </div>
         </div>
       </motion.div>
