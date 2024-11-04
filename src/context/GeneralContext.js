@@ -24,11 +24,23 @@ export const GeneralProvider = ({children}) => {
         setExamenEscrito(e.target.value)
     }
 
+    const [dniEstudiante, setDniEstudiante] = useState("")
+    const changeDniEstudiante = (e) => {
+        setDniEstudiante(e.target.value)
+    }
+
+    const [fecha, setFecha] = useState("")
+    const changeFecha = (e) => {
+        setFecha(e.target.value)
+    }
+
     return <GeneralContext.Provider value={{ 
         correo, changeCorreo, 
         password, changePassword,
         examenOral, changeExamenOral,
-        examenEscrito, changeExamenEscrito
+        examenEscrito, changeExamenEscrito,
+        dniEstudiante, changeDniEstudiante,
+        fecha, changeFecha
     }}>
         {children}
     </GeneralContext.Provider>
