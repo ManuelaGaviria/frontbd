@@ -146,7 +146,7 @@ function Programar() {
       <ContenedorForms>
         <h1>Programar</h1>
         <div className="InputContainer">
-          <LabelInput texto="Fecha" tipo="date" eventoCambio={changeFecha}></LabelInput>
+          <LabelInput texto="Fecha () *" tipo="date" eventoCambio={changeFecha}></LabelInput>
           <Select titulo="Clase *" opciones={claseSelect} eventoCambio={handleChange}></Select>
           <Select titulo="Hora *" opciones={horaSelect} eventoCambio={handleChangeHora}></Select>
         </div>

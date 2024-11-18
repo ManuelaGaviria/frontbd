@@ -86,46 +86,55 @@ function Calificar() {
               buttonsStyling: false
             });
           } else { 
-            const data = {
-              dniEstudiante: estuSeleccionado,
-              numeroExamen: examSeleccionado,
-              notaExamOral: examenOral,
-              notaExamEscrito: examenEscrito
-            };
-            try {
-              const respuesta = await fetchBody('/usuarios/calificar', 'POST', data);
-              if (respuesta.exito) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Examen calificado con éxito!",
+            const token = localStorage.getItem("token");
+    
+            if (token) {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const idProf = payload.id;
+
+                const data = {
+                  dniEstudiante: estuSeleccionado,
+                  numeroExamen: examSeleccionado,
+                  notaExamOral: examenOral,
+                  cantidadAciertos: examenEscrito,
+                  dniProfesor: idProf
+                };
+
+                try {
+                  const respuesta = await fetchBody('/usuarios/calificar', 'POST', data);
+                  if (respuesta.exito) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Examen calificado con éxito!",
+                        customClass: {
+                          confirmButton: 'btn-color'
+                        },
+                        buttonsStyling: false
+                      });
+                      navigate("/Teacher");
+                  } else {
+                    Swal.fire({
+                      icon: "error",
+                      title: "Error",
+                      text: 'No se pudo calificar el examen',
+                      customClass: {
+                        confirmButton: 'btn-color'
+                      },
+                      buttonsStyling: false
+                    });
+                  }
+                } catch (error) {
+                  Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: 'Error al procesar la solicitud para calificar',
                     customClass: {
                       confirmButton: 'btn-color'
                     },
                     buttonsStyling: false
                   });
-                  navigate("/Teacher");
-              } else {
-                Swal.fire({
-                  icon: "error",
-                  title: "Error",
-                  text: 'No se pudo calificar el examen',
-                  customClass: {
-                    confirmButton: 'btn-color'
-                  },
-                  buttonsStyling: false
-                });
-              }
-            } catch (error) {
-              Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: 'Error al procesar la solicitud para calificar',
-                customClass: {
-                  confirmButton: 'btn-color'
-                },
-                buttonsStyling: false
-              });
-            }
+                }
+            } 
           }
     }
 
@@ -141,7 +150,7 @@ function Calificar() {
             <Select titulo="Estudiante *" opciones={estuSelect}eventoCambio={handleChange}></Select>
             <Select titulo="Examen *" opciones={examSelect}eventoCambio={handleChangeExam}></Select>
             <LabelInput texto="Nota Examen Oral *" tipo="number" eventoCambio={changeExamenOral}></LabelInput>
-            <LabelInput texto="Nota Examen Escrito *" tipo="number" eventoCambio={changeExamenEscrito}></LabelInput>
+            <LabelInput texto="Cantidad Aciertos Examen Escrito (0-10) *" tipo="number" eventoCambio={changeExamenEscrito}></LabelInput>
         </div>
         <br />
         <Button eventoClick={validate} clase="Button">Calificar</Button>
